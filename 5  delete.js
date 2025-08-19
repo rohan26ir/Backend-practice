@@ -48,9 +48,10 @@ async function run() {
     // delete operation
     app.delete("/deleteBlog/:id", async (req, res) => {
       const id = req.params.id;  // id is coming from the url
-      const query = { _id: new ObjectId(id) };
-      // because MongoDB uses ObjectId for _id field
-      // ObjectId is used to convert string id to ObjectId
+      const query = { _id: new ObjectId(id) }; 
+      // specify the query to delete the document
+         // because MongoDB uses ObjectId for _id field
+         // ObjectId is used to convert string id to ObjectId
       const result = await practiceCollection.deleteOne(query);
       res.send(result);
     })
@@ -71,8 +72,7 @@ async function run() {
 run().catch(console.dir);
 
 
-
-// CRUD
+// setup CRUD
 app.get("/", (req, res) => {
   res.send("This is a second");
 })

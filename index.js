@@ -45,13 +45,11 @@ async function run() {
 
 
       
-    // delete operation
-    app.delete("/deleteBlog/:id", async (req, res) => {
-      const id = req.params.id;  // id is coming from the url
+    // get operation with query
+    app.put("/updateblog/:id", async (req, res) => {
+      const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      // because MongoDB uses ObjectId for _id field
-      // ObjectId is used to convert string id to ObjectId
-      const result = await practiceCollection.deleteOne(query);
+      const result = await practiceCollection.findOne(query);
       res.send(result);
     })
 
