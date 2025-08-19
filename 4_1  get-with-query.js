@@ -45,14 +45,14 @@ async function run() {
 
 
       
-    // delete operation
-    app.delete("/deleteBlog/:id", async (req, res) => {
+    // get operation with query
+    app.put("/detailsblog/:id", async (req, res) => {
       const id = req.params.id;  // id is coming from the url
       const query = { _id: new ObjectId(id) }; 
       // specify the query to find the document to delete
           // _id is the unique identifier for each document in MongoDB
          // ObjectId is used to convert string id to ObjectId
-      const result = await practiceCollection.deleteOne(query);
+      const result = await practiceCollection.findOne(query);
       res.send(result);
     })
 
@@ -72,7 +72,8 @@ async function run() {
 run().catch(console.dir);
 
 
-// setup CRUD
+
+// CRUD
 app.get("/", (req, res) => {
   res.send("This is a second");
 })
