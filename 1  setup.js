@@ -1,3 +1,15 @@
+// mkdir filename  = create a folder
+// cd filename = change directory to that folder  
+// npm init -y = create a package.json file
+// npm install express cors dotenv mongodb = install these packages
+// code . = open the folder in vs code
+// index.js = create a file named index.js
+// in package.json insert 'start' script
+    // "start": "index.js",
+
+
+
+
 const express = require('express');
 const cors = require('cors');
 const app = express();

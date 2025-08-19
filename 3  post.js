@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 
+// port
 const port= process.env.PORT || "5000";
 
 
@@ -9,14 +12,16 @@ const port= process.env.PORT || "5000";
 app.use(cors());
 app.use(express.json());
 
-//user:   backpractice
-//pass:   IqpRX1Tc0zio2GHk
+
+// connect to MongoDB
+console.log(process.env.user);
+console.log(process.env.password);
 
 // paste full coped code here and add user and pass in the code
-const { MongoClient, ServerApiVersion } = require('mongodb');
+
 // const uri = "mongodb+srv://<db_username>:<db_password>@cluster0.8c67l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-const uri = "mongodb+srv://backpractice:IqpRX1Tc0zio2GHk@cluster0.8c67l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.user}:${process.env.password}@cluster0.8c67l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -31,6 +36,27 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+
+    const practiceCollection = client.db('practiceDB').collection('practiceCollection');
+      // databas name = practiceDB
+      // collection name = practCollection
+      
+
+
+      
+    // POST Operation
+    app.post('/', async(req, res) => {
+      const newPactice = req.body;
+      const result = await practiceCollection.insertOne(newPactice);
+      res.send(result);
+    })
+
+
+  
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -40,10 +66,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-
 
 
 
